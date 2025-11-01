@@ -1,0 +1,6 @@
+openai
+requests
+pydantic-ai
+python-dotenv
+langfuse
+pydantic-settings
