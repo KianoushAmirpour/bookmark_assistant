@@ -1,15 +1,13 @@
-from pydantic import BaseModel, Field, FilePath, computed_field, SecretStr, ConfigDict
+from pydantic import BaseModel, Field, FilePath, computed_field, ConfigDict
 from typing import Literal, Annotated, List, Union
 from enum import Enum
 from pathlib import Path
 from pydantic_ai.models.openai import OpenAIChatModel
 from pydantic_ai.providers.openai import OpenAIProvider
 from pydantic_ai.models.google import GoogleModel
-from pydantic_ai.providers.google import GoogleProvider
 from pydantic_ai.settings import ModelSettings
 
 class AgentsName(Enum):
-    FEEDER = "feeder"
     CLASSIFIER = "classifier"
     RECENCY_RANKER = "recency_ranker"
     
@@ -41,36 +39,15 @@ class LlmConfigs(BaseModel):
                                 temperature=self.temperature,
                                 timeout=self.timeout
                                 )
-        # if self.model_name.startswith("gemini"):
-        #     provider = GoogleProvider(api_key=self.api_key)
-        #     return GoogleModel(model_name=self.model_name, provider=provider, settings=model_settings)
-        # else:
-        #     return OpenAIChatModel(model_name=self.model_name,
-        #                            provider=OpenAIProvider(base_url=self.base_url, api_key=self.api_key),
-        #                            settings=model_settings)
+
         return OpenAIChatModel(model_name=self.model_name,
                                    provider=OpenAIProvider(base_url=self.base_url, api_key=self.api_key),
                                    settings=model_settings)
     
 class AgentConfigs(BaseModel):
-    agent_name: Literal["feeder", "classifier", "recency_ranker"]
-    system_prompt : str
+    agent_name: Literal["feeder", "classifier", "recency_ranker", "judge"]
+    system_prompt : str | None = None
     user_prompt: UserPrompt
     retries: Annotated[int, Field(ge=0, le=5, default=4)]
     model_configs: LlmConfigs
     tools : List = Field(default_factory=list)
-    
-    
-
-
-    
-# //do i need sth that must executed when the instance is being created??
-#  add annotated for more validation like greater then zero, min or max length, oatter matching, 
-#  type hints for file paths, pydantic types, filed validator(before mode for validating before validation)
-# model validaotr for validating multiple fields together or validating the whole model
-# compute filed for building prompt
-#  config dict to accept alliaces
-# excluding some fileds when serialize or include the ones we want
-# can use models_validate and o=model_valdiate_json to input from dict and json
-# revalidte every time when we change a value. use configdict validate_assienment
-# for not changing, frozen=true

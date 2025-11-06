@@ -100,7 +100,20 @@ def write_markdown_file(output_path: Path, content: str):
     output_path.parent.mkdir(parents=True, exist_ok=True)
     with output_path.open("w", encoding="utf-8") as f:
         f.write(content)
-        
+
+def open_markdown_file(file_path: Path) -> str:
+    """
+    Reads and returns the content of a markdown file.
+
+    Args:
+        file_path (Path): The path to the markdown file.
+    Returns:
+        str: The content of the markdown file as a string.
+    """
+    with open(file_path, "r", encoding="utf-8") as f:
+        content = f.read()
+    return content
+
 def convert_webkit_timestamp(data:List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     
     """
