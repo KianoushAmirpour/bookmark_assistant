@@ -1,0 +1,32 @@
+[
+    {
+        "date_added": "13411290123456789",
+        "date_last_used": "0",
+        "name": "example5.com",
+        "url": "https://example5.com"
+    },
+    {
+        "date_added": "13399844011223344",
+        "date_last_used": "0",
+        "name": "example2.com",
+        "url": "https://example2.com"
+    },
+    {
+        "date_added": "13405678000000000",
+        "date_last_used": "0",
+        "name": "example4.com",
+        "url": "https://example4.com"
+    },
+    {
+        "date_added": "13400000111111111",
+        "date_last_used": "0",
+        "name": "https://example3.com",
+        "url": "https://example3.com"
+    },
+    {
+        "date_added": "13395663095455156",
+        "date_last_used": "0",
+        "name": "https://example1.com",
+        "url": "https://example1.com"
+    }
+]

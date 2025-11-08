@@ -1,5 +1,5 @@
-from pydantic import BaseModel, Field, FilePath, computed_field, ConfigDict
-from typing import Literal, Annotated, List, Union
+from pydantic import BaseModel, Field, computed_field, ConfigDict
+from typing import Annotated, List, Union
 from enum import Enum
 from pathlib import Path
 from pydantic_ai.models.openai import OpenAIChatModel

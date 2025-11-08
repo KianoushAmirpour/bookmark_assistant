@@ -17,7 +17,6 @@ class BookmarkAssistant():
                      system_prompt=self.configs.system_prompt,
                      tools=self.configs.tools,
                      retries=self.configs.retries,
-                    #  output_type=self.agent_configs.output_type
                      )
     
     def run(self):

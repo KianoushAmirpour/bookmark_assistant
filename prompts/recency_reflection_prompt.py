@@ -19,9 +19,9 @@ output format: a single markdown file containing the URLs and their time attribu
 
 ## Ranked List by Time Added
 
-### 1. **(URL)**
-- **🕒 Added At:** 28/05/2025
+### 1. **url**
+- **🕒 date_added:** 28/05/2025
 
-### 2. **(URL)**
-- **🕒 Added At:** 29/05/2025
+### 2. **url**
+- **🕒 date_added:** 29/05/2025
 """

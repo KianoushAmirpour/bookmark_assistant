@@ -1,4 +1,4 @@
-from utils import loaders, logger, configs
+from utils import loaders, configs
 from tools import agent_tools
 from agents import assistants, judge
 from prompts import classifier_prompts, recency_prompts, classifier_reflection_prompt, recency_reflection_prompt
@@ -9,8 +9,7 @@ env_configs= loaders.load_env_vars(".env")
 
 logfire.configure(token=env_configs["LOGFIRE_API_KEY"])
 logfire.instrument_pydantic_ai()
-
-logger = logger.setup_logger()
+logfire.instrument_google_genai()
 
 # load bookmarks file from the system, clean them and save them as json for later use.
 sys_bookmarks_paths = loaders.load_bookmarks()
@@ -34,6 +33,7 @@ def run_classification_agent():
 )
 
     classifier_agent = assistants.BookmarkAssistant(configs=classifier_cfg)
+    logfire.info("Starting classification agent")
     classifier_agent.run()
     
   
@@ -50,6 +50,7 @@ def run_classification_reflection_agent():
     )
 
     classifier_reflector_agent = judge.Judge(classifier_reflector_cfg)
+    logfire.info("Starting classification reflection agent")
     classifier_reflector_agent.run()
 
 def run_recency_agent():
@@ -70,6 +71,7 @@ def run_recency_agent():
     )
 
     recency_agent = assistants.BookmarkAssistant(configs=recency_cfg)
+    logfire.info("Starting recency agent")
     recency_agent.run()
     
     
@@ -86,12 +88,12 @@ def run_recency_reflection_agent():
     )
 
     recency_reflector_agent = judge.Judge(recency_reflector_cfg)
+    logfire.info("Starting recency reflection agent")
     recency_reflector_agent.run()
 
-# run_classification_agent()
-# print("Classification done")
-# run_classification_reflection_agent()
+run_classification_agent()
+run_classification_reflection_agent()
+
 run_recency_agent()
-print("recency done")
 run_recency_reflection_agent()
 

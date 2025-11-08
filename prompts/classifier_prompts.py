@@ -30,19 +30,17 @@ output format: a single markdown file containing the groups and the URLs assigne
 ## 🏷️ **Summary of Categories**
 
 | Category |
-|-----|--------|-----|
-| 1 | **Category 1** | |
-| 2 | **Category 2** | |
+
+- **Category 1** 
+- **Category 2** 
 
 ## 📚 **Categorized URLs**
 
 ###  Category 1 
-|-----|--------|-----|
-| 1 | [Title or name](URL) | |
-| 2 | [Title or name](URL) | |
+- [Title or name](URL)
+- [Title or name](URL)
 
 ###  Category 2 
-|-----|--------|-----|
-| 1 | [Title or name](URL) | |
-| 2 | [Title or name](URL) | |
+- [Title or name](URL)
+- [Title or name](URL)
 """
