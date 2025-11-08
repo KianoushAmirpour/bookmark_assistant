@@ -24,6 +24,9 @@ A dedicated evaluation dataset has been created to test the recency ranking agen
 ## Tech stack
 * pydantic-ai and logfire
 
+## Outputs 
+All outputs are in markdown format. They will be saved in outputs folder.
+
 ## to do
 * support for mac and linux
 * prompt versioning
