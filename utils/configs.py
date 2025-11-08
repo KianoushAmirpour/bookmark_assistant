@@ -13,7 +13,7 @@ class AgentsName(Enum):
     
 class UserPrompt(BaseModel):
     base_user_prompt: str
-    input_path: FilePath
+    input_path: Path
     output_path : Path
     
     @computed_field
@@ -45,7 +45,7 @@ class LlmConfigs(BaseModel):
                                    settings=model_settings)
     
 class AgentConfigs(BaseModel):
-    agent_name: Literal["feeder", "classifier", "recency_ranker", "judge"]
+    agent_name: str
     system_prompt : str | None = None
     user_prompt: UserPrompt
     retries: Annotated[int, Field(ge=0, le=5, default=4)]

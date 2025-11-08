@@ -3,6 +3,7 @@ from typing import Dict, Any, List
 from pathlib import Path
 import random
 from datetime import datetime, timedelta
+import re
 
 def load_extract_bookmarks(bookmark_path: str) -> List[Dict[str, Any]]:
     """
@@ -52,9 +53,9 @@ def write_extracted_bookmarks(output_dir: Path, data: List[Dict[str, Any]]):
     with output_dir.open("w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
         
-def load_json_file(file_path: Path) -> Dict[str, Any]:
+def load_json_file_classifier(file_path: Path) -> Dict[str, Any]:
     """
-    Load a JSON file and returns its contents as a dictionary.
+    Loads a JSON file and returns its contents as a dictionary.
 
     Args:
         file_path (Path): The path to the JSON file.
@@ -67,7 +68,7 @@ def load_json_file(file_path: Path) -> Dict[str, Any]:
     for item in data:
         item.pop("date_added", None)
         item.pop("date_last_used", None)
-    return data[:200]
+    return data[:50]
         
 def load_json_file_recency(file_path: Path) -> Dict[str, Any]:
     """
@@ -84,14 +85,11 @@ def load_json_file_recency(file_path: Path) -> Dict[str, Any]:
     for item in data:
         item.pop("name", None)
         item.pop("date_last_used", None)
-    return data[:20]
+    return data[:50]
     
 def write_markdown_file(output_path: Path, content: str):
     """
     Writes content to a markdown file.
-
-    This function ensures the parent directory exists before writing.
-    If the file already exists, it will be overwritten.
 
     Args:
         output_path (Path): The path where the markdown file will be written.
@@ -127,8 +125,7 @@ def convert_webkit_timestamp(data:List[Dict[str, Any]]) -> List[Dict[str, Any]]:
 
     Returns:
         List[Dict[str, Any]]: 
-            The same list with the 'date_added' fields converted to formatted 
-            datetime.
+            The same list with the 'date_added' fields converted to formatted datetime.
     """
     EPOCH_START = datetime(1601, 1, 1)
     for item in data:
@@ -136,7 +133,7 @@ def convert_webkit_timestamp(data:List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         item["date_added"] = EPOCH_START + timedelta(seconds=seconds)
     return data
 
-def sort_by_datetime_key(data: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+def sort_by_datetime(data: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     """
     Sorts a list of dictionaries based on the 'date_added' key, 
     assuming its value is a datetime object or a comparable type.
@@ -172,3 +169,22 @@ def format_datetime(data: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     for item in data:
         item["date_added"] = datetime.fromisoformat(item["date_added"]).strftime("%Y-%m-%d")
     return data
+
+def find_datetime_and_urls(data: str) -> List[Dict[str, Any]]:
+    """
+    Extracts URLs and their associated dates from the reflection report content.
+
+    Args:
+        data (str): 
+            The content of the reflection report as a string.
+            contains URLs and their associated dates.
+
+    Returns:
+        List[Dict[str, Any]]: 
+            A list of dictionaries containing the URLs and their added dates.
+    """
+    urls = re.findall(r'\[.*?\]\((https?://.*?)\)', data)
+    dates = re.findall(r'\*\*Added At\*\*:\s*([\d-]+)', data)
+
+    formatted_report = [{"url": url, "added_at": date} for url, date in zip(urls, dates)]
+    return formatted_report

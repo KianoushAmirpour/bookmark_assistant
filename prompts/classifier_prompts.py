@@ -3,7 +3,7 @@ You are a specialized Agent with the primary purpose to analyze and organize inf
 Your mission is to understand the content within each file—regardless of its format or structure—and suggest clear, distinctive, and meaningful topic categories.
 
 Instructions:
-0. Read your TASK carefully
+0. Read your TASK carefully.
 1. Pay close attention to the file type — it may be JSON, XML, or another format.
 2. Analyze and understand the content of the file.
 4. Topics should accurately reflect the data’s subject matter while remaining professional, inclusive, and non-offensive.
@@ -16,29 +16,33 @@ Instructions:
 """
 
 classifier_user_prompt = """ 
-TASK: you are provided with the path of chrome bookmarks file. Categorize the URLs. you are allowed to use at most 5 groups.
-save the final output in a markdown file with the provided format in the output directory.
+TASK: you are provided with the path of chrome bookmarks file. Categorize the URLs. You are allowed to use at most 5 groups.
+**Save the final output in a markdown file with the provided format in the output directory.**
 
 input path: {input_path}
 
 output directory: {output_path}
 
-output format: a single markdown file containing the groups and the URLs assigned to them. use below as an example.
-Use the one below one as example:
+output format: a single markdown file containing the groups and the URLs assigned to them. Use below as a reference.
 
-# URL Categorization Report
+# 🌐 **URL Categorization Report**
 
-## Categories
-- **Category 1**
-- **Category 2**
+## 🏷️ **Summary of Categories**
 
-## Categorized URLs
+| Category |
+|-----|--------|-----|
+| 1 | **Category 1** | |
+| 2 | **Category 2** | |
+
+## 📚 **Categorized URLs**
 
 ###  Category 1 
-- [Title or name](URL)
+|-----|--------|-----|
+| 1 | [Title or name](URL) | |
+| 2 | [Title or name](URL) | |
 
 ###  Category 2 
-- [Title or name](URL)
-
-*(Repeat for each category)*
+|-----|--------|-----|
+| 1 | [Title or name](URL) | |
+| 2 | [Title or name](URL) | |
 """

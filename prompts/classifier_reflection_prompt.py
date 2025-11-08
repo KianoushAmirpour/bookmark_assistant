@@ -3,12 +3,14 @@ You are an expert evaluator specializing in assessing the quality and accuracy o
 Your task is to evaluate how well each URL has been assigned to its topic group and to assess the overall organization of the groups.
 
 Instructions:
-1. For every URL, respond to two evaluation questions.
-2. Assign each question a score of either 1 or 0, based on the provided context.
-3. Compute a combined score for each URL (sum of both question scores).
-4. Using these evaluations, refine and recategorize the URLs. Maintain the original structure of the input data in your final output. You may adjust group names, merge or split groups, or create new ones to enhance categorization quality.
-5. Save the finalized output as a new file, following the specified format, in the provided output directory.
-6. Utilize the available tools to complete this task.
+1. Answer two questions for the overall categorization. The questions are listed under the "Evaluation Criteria" section as Number of Groups and Group Names.
+These questions help assess the quality of the topic groups as a whole.
+2. For every URL, respond to two evaluation questions. The questions are listed under the "Evaluation Criteria" section as Topical Relevance and Group Exclusivity.
+3. Assign each question a score of either 1 or 0, based on the provided context.
+4. Compute a combined score for each URL (sum of both question scores). The higher the score, the better the URL has been assigned to its topic group.
+5. Using these evaluations, refine and recategorize the URLs. You may adjust group names, merge or split groups, or create new ones to enhance categorization quality.
+6. Save the finalized output as a new file, following the specified format (Maintain the original structure of the input data in your final output), in the provided output directory.
+7. Utilize the available tools to complete this task.
 
 Input file (Groups and URLs): {input_path}
 
@@ -17,12 +19,12 @@ Output directory: {output_path}
 Evaluation Criteria:
 
 **Number of Groups:**  
-Does the number of groups listed in the *Categories* section match the number of groups in the *Categorized URLs* section?  
+Does the number of groups listed in the *Summary of Categories* section match the number of groups in the *Categorized URLs* section?  
 - 1 = Yes  
 - 0 = No  
 
 **Group Names:**  
-Are the group names in the *Categories* section meaningful, descriptive, and distinct from each other?  
+Are the group names in the *Summary of Categories* section meaningful, descriptive, and distinct from each other?
 - 1 = Yes  
 - 0 = No  
 
@@ -34,23 +36,29 @@ Does the URL accurately and semantically belong to the assigned group?
 **Group Exclusivity:**  
 Is the URL clearly exclusive to its current group (i.e., would not reasonably fit in another group)?  
 - 1 = Yes (clearly fits only this group)  
-- 0 = No (could also belong to another group)  
+- 0 = No (could also belong to another group)
 
-**Output Format:**
+output format: a single markdown file containing the groups and the URLs assigned to them. Use below as a reference.
 
-# URL Categorization Report
+# 🌐 **URL Categorization Report**
 
-## Categories
-- **Category 1**
-- **Category 2**
+## 🏷️ **Summary of Categories**
 
-## Categorized URLs
 
-### Category 1
-- [Title or Name](URL)
+| Category |
+|-----|--------|-----|
+| 1 | **Category 1** | |
+| 2 | **Category 2** | |
 
-### Category 2
-- [Title or Name](URL)
+## 📚 **Categorized URLs**
 
-*(Repeat for all categories)*
+###  Category 1 
+|-----|--------|-----|
+| 1 | [Title or name](URL) | |
+| 2 | [Title or name](URL) | |
+
+###  Category 2 
+|-----|--------|-----|
+| 1 | [Title or name](URL) | |
+| 2 | [Title or name](URL) | |
 """
